@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
+        <meta http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
         <title>This is a standard title</title>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -9,12 +12,12 @@
 
         <!-- Links to the bootstrap and the bootcards. Use only one bootcard stylesheet, based on what OS we're using -->
         <link rel="stylesheet" href="libs/bootstrap_3.3.4.min.css">
-        <link rel="stylesheet" href="libs/bootcards-desktop.min.css">
 
         <!-- Get some icons for simplicity / style -->
         <link rel="stylesheet" href="libs/font-awesome-4.6.3/css/font-awesome.min.css">
-        <!--<link rel="stylesheet" href="libs/bootcards-android.min.css">
-        <link rel="stylesheet" href="libs/bootcards-ios.min.css"> -->
+        <!--<link rel="stylesheet" href="libs/bootcards-ios.min.css"> -->
+        <link rel="stylesheet" href="libs/bootcards-desktop.min.css">
+        <!--<link rel="stylesheet" href="libs/bootcards-android.min.css">-->
 
     </head>
     <body>
@@ -33,38 +36,61 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                </div>
-                <button type="button" class="btn btn-default btn-back navbar-left pull-left hidden" onclick="history.back()">
+
+                <button type="button" class="btn btn-default btn-back navbar-left pull-left" onclick="history.back()">
                     <i class="fa fa-lg fa-chevron-left"></i>
                     <span>Back</span>
                 </button>
-                <button type="button" class="btn btn-default btn-menu" data-toggle="offcanvas">
+                <button type="button" class="btn btn-default btn-menu pull-right" data-toggle="offcanvas">
                     <i class="fa fa-lg fa-bars"></i>
                     <span>Menu</span>
                 </button>
                 <a class="navbar-brand no-break-out" title="Job Board v{{getAppVersion}}" href="JobBoard/index.html">Job Board</a>
-                    <div class="navbar-collapse collapse">
-                      <ul class="nav navbar-nav">
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
                         <li class="active">
-                          <a href="#">
-                            <i class="fa fa-users"></i>
-                            Contacts
-                          </a>
+                            <a href="#">
+                                <i class="fa fa-users"></i>
+                                Contacts
+                            </a>
                         </li>
                         <li>
-                          <a href="#">
-                            <i class="fa fa-building-o"></i>
-                            Companies
-                          </a>
+                            <a href="#">
+                                <i class="fa fa-building-o"></i>
+                                Companies
+                            </a>
                         </li>
                         <li>
-                          <a href="html/settings.html">
-                            <i class="fa fa-gears"></i>
-                            Settings
-                          </a>
+                            <a href="html/settings.html">
+                                <i class="fa fa-gears"></i>
+                                Settings
+                            </a>
                         </li>
-                      </ul>
-                  </div>
+                    </ul>
+                </div>
+                <div class="navmenu offcanvas offcanvas-left">
+                  <ul class="nav">
+                    <li class="active">
+                      <a href="#">
+                        <i class="fa fa-lg fa-users"></i>
+                        Contacts
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-lg fa-building-o"></i>
+                        Companies
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-lg fa-gears"></i>
+                        Settings
+                      </a>
+                    </li>
+                  </ul>
+                </div>
             </div>
         </div>
         <div class="container">
@@ -90,29 +116,51 @@
         </div>
 
         <div class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container">
-    <div class="btn-group">
-      <a href="#" class="btn btn-default active">
-        <i class="fa fa-2x fa-users"></i>
-        Contacts
-      </a>
-      <a href="#" class="btn btn-default">
-        <i class="fa fa-2x fa-building-o"></i>
-        Companies
-      </a>
-      <a href="#" class="btn btn-default">
-        <i class="fa fa-2x fa-gears"></i>
-        Settings
-      </a>
-    </div>
-    <div class="bootcards-desktop-footer clearfix">
-      <p class="pull-left">Text for desktop footer goes here</p>
-      <p class="pull-right">More text for desktop footer goes here</p>
-   </div>
-  </div>
-</div>
+            <div class="container">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-default active">
+                        <i class="fa fa-2x fa-users"></i>
+                        Contacts
+                    </a>
+                    <a href="#" class="btn btn-default">
+                        <i class="fa fa-2x fa-building-o"></i>
+                        Companies
+                    </a>
+                    <a href="#" class="btn btn-default">
+                        <i class="fa fa-2x fa-gears"></i>
+                        Settings
+                    </a>
+                </div>
+                <div class="bootcards-desktop-footer clearfix">
+                    <p class="pull-left">Text for desktop footer goes here</p>
+                    <p class="pull-right">More text for desktop footer goes here</p>
+                </div>
+            </div>
+        </div>
         <!-- Need to load javascript libraries -->
         <script src="libs/bootstrap_3.3.5.min.js"></script>
-        <script src="bootcards_1.1.2.min.js"></script>
+        <script src="libs/bootcards_1.1.2.min.js"></script>
+        <script>
+        /*
+* Initialize Bootcards.
+*
+* Parameters:
+* - offCanvasBackdrop (boolean): show a backdrop when the offcanvas is shown
+* - offCanvasHideOnMainClick (boolean): hide the offcanvas menu on clicking outside the off canvas
+* - enableTabletPortraitMode (boolean): enable single pane mode for tablets in portraitmode
+* - disableRubberBanding (boolean): disable the iOS rubber banding effect
+* - disableBreakoutSelector (string) : for iOS apps that are added to the home screen:
+                  jQuery selector to target links for which a fix should be added to not
+                  allow those links to break out of fullscreen mode.
+*/
+
+bootcards.init( {
+offCanvasBackdrop : true,
+offCanvasHideOnMainClick : true,
+enableTabletPortraitMode : true,
+disableRubberBanding : true,
+disableBreakoutSelector : 'a.no-break-out'
+});
+        </script>
     </body>
 </html>
