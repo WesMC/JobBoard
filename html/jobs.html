@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="search-jobs">
     <head>
         <meta http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <title>This is a standard title</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="MyScript.js"></script>
-        <link rel="stylesheet" href="stylesheet.css">
+        <script src="../MyScript.js"></script>
+        <link rel="stylesheet" href="../stylesheet.css">
 
         <!-- Links to the bootstrap and the bootcards. Use only one bootcard stylesheet, based on what OS we're using -->
-        <link rel="stylesheet" href="libs/bootstrap_3.3.4.min.css">
+        <link rel="stylesheet" href="../libs/bootstrap_3.3.4.min.css">
 
         <!-- Get some icons for simplicity / style -->
-        <link rel="stylesheet" href="libs/font-awesome-4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../libs/font-awesome-4.6.3/css/font-awesome.min.css">
         <!--<link rel="stylesheet" href="libs/bootcards-ios.min.css"> -->
-        <link rel="stylesheet" href="libs/bootcards-desktop.min.css">
+        <link rel="stylesheet" href="../libs/bootcards-desktop.min.css">
         <!--<link rel="stylesheet" href="libs/bootcards-android.min.css">-->
 
     </head>
@@ -45,14 +45,14 @@
                     <i class="fa fa-lg fa-bars"></i>
                     <span>Menu</span>
                 </button>
-                <a class="navbar-brand no-break-out" title="Job Board v{{getAppVersion}}" href="JobBoard/index.html">Job Board</a>
+                <a class="navbar-brand no-break-out" title="Job Board v{{getAppVersion}}" href="../index.html">Job Board</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="#">
-                                <i class="fa fa-users"></i>
-                                Contacts
+                            <a href="jobs.html">
+                                <i class="fa fa-cubes"></i>
+                                Look Up Jobs
                             </a>
                         </li>
                         <li>
@@ -62,73 +62,84 @@
                             </a>
                         </li>
                         <li>
-                            <a href="html/settings.html">
+                            <a href="settings.html">
                                 <i class="fa fa-gears"></i>
-                                Settings
+                                My Account
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="navmenu offcanvas offcanvas-left">
                   <ul class="nav">
-                    <li class="active">
-                      <a href="#">
-                        <i class="fa fa-lg fa-users"></i>
-                        Contacts
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-lg fa-building-o"></i>
-                        Companies
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-lg fa-gears"></i>
-                        Settings
-                      </a>
-                    </li>
+                      <li class="active">
+                          <a href="jobs.html">
+                              <i class="fa fa-cubes"></i>
+                              Look Up Jobs
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <i class="fa fa-building-o"></i>
+                              Companies
+                          </a>
+                      </li>
+                      <li>
+                          <a href="settings.html">
+                              <i class="fa fa-gears"></i>
+                              My Account
+                          </a>
+                      </li>
                   </ul>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="bootcards-list">
-                ... Your bootcards List goes here ...
-                <div class="panel panel-default">
-                    <div class="list-group">
-                        <a class="list-group-item" href="#">
-                            <div class="row">
-                                <div class="col-sm-7">
-                                    <i class="fa fa-3x fa-building-o pull-left"></i>
-                                    <h4 class="list-group-item-heading">Some Header</h4>
-                                    <p class="list-group-item-text">Some Item text</p>
-                                </div>
+            <ul class="nav nav-pills nav-justified">
+                <li class="active" role="presentation">
+                    <a>Programming Jobs</a>
+                    <div class="bootcards-list">
+                        ... Your bootcards List goes here ...
+                        <div class="panel panel-default">
+                            <div class="list-group">
+                                <a class="list-group-item" href="#">
+                                    <div class="row">
+                                        <div class="col-sm-7">
+                                            <i class="fa fa-3x fa-building-o pull-left"></i>
+                                            <h4 class="list-group-item-heading">Some Header</h4>
+                                            <p class="list-group-item-text">Some Item text</p>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-7 bootcards-cards">
-                ... Your bootcards Cards go here ...
-            </div>
+                </li>
+                <li role="presentation">
+                    <a>Writing Jobs</a>
+                    <div class="col-sm-7 bootcards-cards">
+                        ... Your bootcards Cards go here ...
+                    </div>
+                </li>
+                <li role="presentation">
+                    <a>All Jobs</a>
+                </li>
+            </ul>
         </div>
 
         <div class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
                 <div class="btn-group">
-                    <a href="#" class="btn btn-default active">
-                        <i class="fa fa-2x fa-users"></i>
-                        Contacts
+                    <a href="jobs.html" class="btn btn-default active">
+                        <i class="fa fa-2x fa-cubs"></i>
+                        Look Up Jobs
                     </a>
                     <a href="#" class="btn btn-default">
                         <i class="fa fa-2x fa-building-o"></i>
                         Companies
                     </a>
-                    <a href="#" class="btn btn-default">
+                    <a href="settings.html" class="btn btn-default">
                         <i class="fa fa-2x fa-gears"></i>
-                        Settings
+                        My Account
                     </a>
                 </div>
                 <div class="bootcards-desktop-footer clearfix">
@@ -138,8 +149,8 @@
             </div>
         </div>
         <!-- Need to load javascript libraries -->
-        <script src="libs/bootstrap_3.3.5.min.js"></script>
-        <script src="libs/bootcards_1.1.2.min.js"></script>
+        <script src="../libs/bootstrap_3.3.5.min.js"></script>
+        <script src="../libs/bootcards_1.1.2.min.js"></script>
         <script>
         /*
 * Initialize Bootcards.
