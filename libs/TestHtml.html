@@ -5,7 +5,7 @@
 	        <meta name="viewport" content="width=device-width, initial-scale=1">
         	<meta charset="utf-8">
 		<title>This is a test html page with NO css</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootcards/1.1.2/js/bootcards.min.js"></script>
@@ -34,7 +34,7 @@
 
 		});
 		app.controller("parseString", function ($scope, $sce, $http) {
-            $scope.indeedRequestUrl = "http://api.indeed.com/ads/apisearch?"
+            $scope.indeedRequestUrl = "https://api.indeed.com/ads/apisearch?"
             $scope.indeedStringBuild = {"publisher": 5387848590601281, "v": 2, "format": "xml", "callback": "",
                                   "q": "", "l": "", "sort": "", "radius": "", "st": "", "jt": "", "start": "",
                                   "limit": 10, "fromage": "", "highlight": "", "filter": 1, "latlong": 0, "chnl": "",
