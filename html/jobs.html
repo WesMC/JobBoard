@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <title>This is a standard title</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="../MyScript.js"></script>
+        <script async src="../libs/angular-1.5.8.min.js"></script>
+        <script async src="../libs/jquery-3.1.1.min.js"></script>
+        <script async src="../MyScript.js"></script>
         <link rel="stylesheet" href="../stylesheet.css">
 
         <!-- Links to the bootstrap and the bootcards. Use only one bootcard stylesheet, based on what OS we're using -->
@@ -93,11 +93,11 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" ng-controller="display_seg">
             <ul class="nav nav-pills nav-justified">
-                <li class="active" role="presentation">
-                    <a>Programming Jobs</a>
-                    <div class="bootcards-list">
+                <li class={{prog_dis_class}} role="presentation">
+                    <a ng-click="displayProg()">Programming Jobs</a>
+                    <div class="bootcards-list" ng-show="progShow">
                         ... Your bootcards List goes here ...
                         <div class="panel panel-default">
                             <div class="list-group">
@@ -114,13 +114,13 @@
                         </div>
                     </div>
                 </li>
-                <li role="presentation">
-                    <a>Writing Jobs</a>
-                    <div class="col-sm-7 bootcards-cards">
+                <li class={{writ_dis_class}} role="presentation">
+                    <a ng-click="displayWrit()">Writing Jobs</a>
+                    <div ng-show="writ-show" class="col-sm-7 bootcards-cards">
                         ... Your bootcards Cards go here ...
                     </div>
                 </li>
-                <li role="presentation">
+                <li class={{all_dis_class}} role="presentation">
                     <a>All Jobs</a>
                 </li>
             </ul>
