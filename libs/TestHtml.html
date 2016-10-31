@@ -5,10 +5,11 @@
 	        <meta name="viewport" content="width=device-width, initial-scale=1">
         	<meta charset="utf-8">
 		<title>This is a test html page with NO css</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootcards/1.1.2/js/bootcards.min.js"></script>
+		<script src="angular-1.5.8.min.js"></script>
+		<script src="jquery-3.1.1.min.js"></script>
+		<script src="bootstrap_3.3.5.min.js"></script>
+		<script src="bootcards_1.1.2.min.js"></script>
+        <script src="x2js-master/xml2json.js"></script>
 		<script src="ui-bootstrap-tpls-2.2.0.min.js"></script>
 		<link rel="stylesheet" href="bootstrap_3.3.4.min.css">
 	</head>
@@ -26,7 +27,7 @@
         </div>
 		<script>
 		var htmlToSend = '<div class="bootcards-list"><div class="panel panel-default"><div class="list-group"><a class="list-group-item" href="#"><div class="row"><div class="col-sm-6"><i class="fa fa-3x fa-building-o pull-left"></i><h4 class="list-group-item-heading">Some Company</h4><p class="list-group-item-text">Manchester, NH</p></div></div></a></div></div></div>'
-
+        var my_x2js = new X2JS();
 
 		var app = angular.module("myApp", []);
 		app.controller("myCtrl", function ($sce, $scope, $http) {
@@ -35,7 +36,7 @@
 		});
 		app.controller("parseString", function ($scope, $sce, $http) {
             $scope.indeedRequestUrl = "//api.indeed.com/ads/apisearch?"
-            $scope.indeedStringBuild = {"publisher": 9810209592087925, "v": 2, "format": "xml", "callback": "",
+            $scope.indeedStringBuild = {"publisher": 9810209592087925, "v": 2, "format": "json", "callback": "",
                                   "q": "", "l": "", "sort": "", "radius": "", "st": "", "jt": "", "start": "",
                                   "limit": 10, "fromage": "", "highlight": "", "filter": 1, "latlong": 0, "chnl": "",
                                   "co": "us", "userip": "1.2.3.4", "useragent": navigator.userAgent };
@@ -64,15 +65,34 @@
 
             // console.log($scope.stringBuild send api request);
             // $scope.requestUrl = $scope.indeedUrlBuilder($scope.indeedRequestUrl, $scope.indeedStringBuild)
-            $scope.requestUrl = 'http://api.indeed.com/ads/apisearch?publisher=9810209592087925&q=java&l=austin%2C+tx&sort=&radius=&st=&jt=&start=&limit=&fromage=&filter=&latlong=1&co=us&chnl=&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2'
+            $scope.requestUrl = $scope.indeedUrlBuilder($scope.indeedRequestUrl, $scope.indeedStringBuild);
             console.log($scope.requestUrl);
 
+            // Normally, We'd continue with this code, but for some reason, it won't give us a proper response.
+            /*
             $http.get($scope.requestUrl)
             .then(function(response) {
                 $scope.JsonStringReturn = response.data;
                 console.log(response.status);
                 console.log(response.statustext);
             });
+            */
+            // For now, we must assume that we have a JSON string to setup list-group stuff on the main page
+            $scope.get_xml_data = function () {
+				$http.get("programmingResponse.xml").success(function(data, status) {
+					console.log(data);
+					$scope.jsonData = my_x2js.xml_str2json(data);
+					console.log($scope.jsonData);
+				}).error(function(data, status){
+					console.log("Failed - " + data)
+				});
+			};
+            //$scope.JsonStringReturn = x2js.xml2json($scope.xml);
+            $scope.get_xml_data();
+
+			//console.log($scope.xml);
+			console.log(my_x2js.xml_str2json(String($scope.xml)));
+            console.log($scope.JsonStringReturn);
 
 		});
 		</script>
