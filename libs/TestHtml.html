@@ -23,7 +23,39 @@
 			</ul>
         </div>
         <div class="container" ng-controller="parseString">
-            <p>{{JsonStringReturn}}</p>
+            <div class="tab-content">
+				<div class="tab-pane fade in active" id="ProgrammingJobs">
+					<h3>Programming Jobs</h3>
+					<p>Here are some programming jobs</p>
+					<div class="bootcards-list">
+						<div class="panel panel-default">
+							<div class="list-group">
+								<div ng-repeat="response in jsonResponse">
+									<div ng-repeat="myResults in response.results.result">
+										<a class="list-group-item" href="#">
+											<div class="row">
+												<div class="col-sm-6">
+													<i class="fa fa-3x fa-building-o pull-left"></i>
+													<h4 class="list-group-item-heading">{{myResults.jobtitle}}</h4>
+													<p class="list-group-item-text">{{myResults.formattedLocation}}</p>
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="WritingJobs">
+					<h3>Writing Jobs</h3>
+					<p>These are the writing jobs</p>
+				</div>
+				<div class="tab-pane fade" id="AllJobs">
+					<h3>All Jobs</h3>
+					<p>These are all of Indeed's Jobs</p>
+				</div>
+			</div>
         </div>
 		<script>
 		var htmlToSend = '<div class="bootcards-list"><div class="panel panel-default"><div class="list-group"><a class="list-group-item" href="#"><div class="row"><div class="col-sm-6"><i class="fa fa-3x fa-building-o pull-left"></i><h4 class="list-group-item-heading">Some Company</h4><p class="list-group-item-text">Manchester, NH</p></div></div></a></div></div></div>'
@@ -35,6 +67,8 @@
 
 		});
 		app.controller("parseString", function ($scope, $sce, $http) {
+			var vm = this;
+			vm.response = [];
             $scope.indeedRequestUrl = "//api.indeed.com/ads/apisearch?"
             $scope.indeedStringBuild = {"publisher": 9810209592087925, "v": 2, "format": "json", "callback": "",
                                   "q": "", "l": "", "sort": "", "radius": "", "st": "", "jt": "", "start": "",
@@ -79,20 +113,22 @@
             */
             // For now, we must assume that we have a JSON string to setup list-group stuff on the main page
             $scope.get_xml_data = function () {
-				$http.get("programmingResponse.xml").success(function(data, status) {
-					console.log(data);
-					$scope.jsonData = my_x2js.xml_str2json(data);
-					console.log($scope.jsonData);
-				}).error(function(data, status){
-					console.log("Failed - " + data)
+				$http.get("programmingResponse.xml").then(function(data) {
+					//console.log(data.data);
+					vm.response = data.data;
+				}).then(function (data) {
+					//console.log(typeof(vm.response));
+					$scope.jsonResponse = my_x2js.xml_str2json(vm.response);
+				}).then(function (data) {
+					console.log($scope.jsonResponse);
 				});
 			};
             //$scope.JsonStringReturn = x2js.xml2json($scope.xml);
             $scope.get_xml_data();
 
 			//console.log($scope.xml);
-			console.log(my_x2js.xml_str2json(String($scope.xml)));
-            console.log($scope.JsonStringReturn);
+			//console.log(my_x2js.xml_str2json(String(vm.response)));
+            //console.log($scope.JsonStringReturn);
 
 		});
 		</script>
