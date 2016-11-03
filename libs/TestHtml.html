@@ -12,6 +12,7 @@
         <script src="x2js-master/xml2json.js"></script>
 		<script src="ui-bootstrap-tpls-2.2.0.min.js"></script>
 		<link rel="stylesheet" href="bootstrap_3.3.4.min.css">
+		<link rel="stylesheet" href="../stylesheet.css">
 	</head>
 	<body>
 		<div class="container" ng-controller="myCtrl">
@@ -28,19 +29,37 @@
 					<h3>Programming Jobs</h3>
 					<p>Here are some programming jobs</p>
 					<div class="bootcards-list">
-						<div class="panel panel-default">
-							<div class="list-group">
+						<div class="list-group">
+							<div class="row">
 								<div ng-repeat="response in jsonResponse">
 									<div ng-repeat="myResults in response.results.result">
-										<a class="list-group-item" href="#">
-											<div class="row">
-												<div class="col-sm-6">
-													<i class="fa fa-3x fa-building-o pull-left"></i>
-													<h4 class="list-group-item-heading">{{myResults.jobtitle}}</h4>
-													<p class="list-group-item-text">{{myResults.formattedLocation}}</p>
+										<div class="col-sm-6">
+										<div ng-if="$index % 2 == 0"></div>
+											<div class="panel panel-default">
+												<div class="panel-heading clearfix">
+													<h3 class="text-center">{{myResults.jobtitle}}</h3>
+												</div>
+												<div class="list-group">
+													<div class="list-group-item">
+														<p class="list-group-item-text">Company</p>
+														<h4 class="list-group-item-heading">{{myResults.company}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">Location</p>
+														<h4 class="list-group-item-heading">{{myResults.formattedLocation}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">{{myResults.snippet}}</p>
+													</div>
+												</div>
+												<div class="panel-footer">
+													<small>Posted: {{myResults.formattedRelativeTime}}</small>
+													<div class="text-right">
+														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+													</div>
 												</div>
 											</div>
-										</a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -51,19 +70,37 @@
 					<h3>Writing Jobs</h3>
 					<p>These are the writing jobs</p>
 					<div class="bootcards-list">
-						<div class="panel panel-default">
-							<div class="list-group">
+						<div class="list-group">
+							<div class="row">
 								<div ng-repeat="response in jsonResponse">
 									<div ng-repeat="myResults in response.results.result">
-										<a class="list-group-item" href="#">
-											<div class="row">
-												<div class="col-sm-6">
-													<i class="fa fa-3x fa-building-o pull-left"></i>
-													<h4 class="list-group-item-heading">{{myResults.jobtitle}}</h4>
-													<p class="list-group-item-text">{{myResults.formattedLocation}}</p>
+										<div class="col-sm-6">
+										<div ng-if="$index % 2 == 0"></div>
+											<div class="panel panel-default">
+												<div class="panel-heading clearfix">
+													<h3 class="text-center">{{myResults.jobtitle}}</h3>
+												</div>
+												<div class="list-group">
+													<div class="list-group-item">
+														<p class="list-group-item-text">Company</p>
+														<h4 class="list-group-item-heading">{{myResults.company}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">Location</p>
+														<h4 class="list-group-item-heading">{{myResults.formattedLocation}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">{{myResults.snippet}}</p>
+													</div>
+												</div>
+												<div class="panel-footer">
+													<small>Posted: {{myResults.formattedRelativeTime}}</small>
+													<div class="text-right">
+														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+													</div>
 												</div>
 											</div>
-										</a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -74,19 +111,37 @@
 					<h3>All Jobs</h3>
 					<p>These are all of Indeed's Jobs</p>
 					<div class="bootcards-list">
-						<div class="panel panel-default">
-							<div class="list-group">
+						<div class="list-group">
+							<div class="row">
 								<div ng-repeat="response in jsonResponse">
 									<div ng-repeat="myResults in response.results.result">
-										<a class="list-group-item" href="#">
-											<div class="row">
-												<div class="col-sm-6">
-													<i class="fa fa-3x fa-building-o pull-left"></i>
-													<h4 class="list-group-item-heading">{{myResults.jobtitle}}</h4>
-													<p class="list-group-item-text">{{myResults.formattedLocation}}</p>
+										<div class="col-sm-6">
+										<div ng-if="$index % 2 == 0"></div>
+											<div class="panel panel-default">
+												<div class="panel-heading clearfix">
+													<h3 class="text-center">{{myResults.jobtitle}}</h3>
+												</div>
+												<div class="list-group">
+													<div class="list-group-item">
+														<p class="list-group-item-text">Company</p>
+														<h4 class="list-group-item-heading">{{myResults.company}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">Location</p>
+														<h4 class="list-group-item-heading">{{myResults.formattedLocation}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">{{myResults.snippet}}</p>
+													</div>
+												</div>
+												<div class="panel-footer">
+													<small>Posted: {{myResults.formattedRelativeTime}}</small>
+													<div class="text-right">
+														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+													</div>
 												</div>
 											</div>
-										</a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -105,8 +160,30 @@
 						  "writing":angular.element(document.querySelector('#WritingJobs')),
 						  "all":angular.element(document.querySelector('#AllJobs'))};
 			var reload = true;
+			var myJobs = { "programming":"",
+						  "writing":"",
+						  "all":""};
 
 			return {
+				getJobBoard: function (idToGet) {
+					var temp = Object.keys(myJobs);
+
+					for (var i = 0; i < temp.length; i++) {
+						if (angular.equals(temp[i], idToGet)) {
+							return myJobs[temp[i]];
+						}
+					}
+				},
+				setJobBoard: function (idToChange, myXml) {
+					var temp = Object.keys(myJobs);
+
+					for (var i = 0; i < temp.length; i++) {
+
+						if (angular.equals(temp[i], idToChange)) {
+							myJobs[temp[i]] = myXml;
+						}
+					}
+				},
 				getReload: function () {
 					return reload;
 				},
@@ -133,12 +210,16 @@
 			};
 		});
 
-		app.controller("tabParent", function ($scope, activeTabs) {
+		app.controller("tabParent", function ($scope, activeTabs, $sce) {
+
+			$scope.customHTML = $sce.trustAsHtml('<div class=bootcards-list><div class=list-group><div class=row><div ng-repeat="response in jsonResponse"><div ng-repeat="myResults in response.results.result"><div class=col-sm-6><div ng-if="$index % 2 == 0"></div><div class="panel panel-default"><div class="clearfix panel-heading"><h3 class=text-center>{{myResults.jobtitle}}</h3></div><div class=list-group><div class=list-group-item><p class=list-group-item-text>Company<h4 class=list-group-item-heading>{{myResults.company}}</h4></div><div class=list-group-item><p class=list-group-item-text>Location<h4 class=list-group-item-heading>{{myResults.formattedLocation}}</h4></div><div class=list-group-item><p class=list-group-item-text>{{myResults.snippet}}</div></div><div class=panel-footer><div class="btn-group btn-group-justified"><div class=btn-group><a class="btn btn-default"href=#><i class="fa fa-arrow-down"></i> View More Info</a></div><div class=btn-group><a class="btn btn-default"href={{myResults.url}}><i class="fa fa-envelope"></i> Go To Post</a></div></div></div></div></div></div></div></div></div></div>');
 
 			$scope.$on("url_reload_check_two", function(event, data) {
 				// Testing purposes, IT WORKS!!
 				//console.log("Parent $on function");
 			});
+
+
 
 		});
 
@@ -155,6 +236,7 @@
 
 		app.controller("parseString", function ($scope, $sce, $http, activeTabs) {
 			var vm = this;
+			var currentId = "";
 			vm.response = [];
             $scope.indeedRequestUrl = "http://api.indeed.com/ads/apisearch?";
             $scope.indeedStringBuild = {"publisher": "9810209592087925", "v": 2, "format": "xml", "callback": "",
@@ -184,7 +266,7 @@
                 return urlToReturn;
             };
 
-			$scope.URL_Handle = function () {
+			$scope.URL_Handle = function (jobBoard) {
 
 	            // console.log($scope.stringBuild send api request);
 	            // $scope.requestUrl = $scope.indeedUrlBuilder($scope.indeedRequestUrl, $scope.indeedStringBuild)
@@ -199,16 +281,25 @@
 				}).then(function (data) {
 
 					$scope.jsonResponse = my_x2js.xml_str2json(vm.response);
+					activeTabs.setJobBoard(currentId, $scope.jsonResponse);
 
 				});
 			};
 
 			// Only get the URL if we need to reload the container
-			function url_reload_check () {
+			function url_reload_check (id) {
+
 				if (activeTabs.getReload() == true) {
 					//console.log(activeTabs);
-	            	$scope.URL_Handle();
-					activeTabs.setReload(false);
+					if (activeTabs.getJobBoard(currentId) != "") {
+						$scope.jsonResponse = activeTabs.getJobBoard(currentId);
+						activeTabs.setReload(false);
+
+					} else {
+
+	            		$scope.URL_Handle(id);
+						activeTabs.setReload(false);
+					}
 				}
 			}
 
@@ -226,15 +317,15 @@
 					if (angular.equals(myIDs[temp[i]], angular.element(document.querySelector(args)))) {
 						//console.log("I'm in if");
 						$scope.indeedStringBuild["q"] = temp[i];
+						currentId = temp[i];
+						url_reload_check(temp[i]);
 						//console.log($scope.indeedStringBuild);
 					}
 				}
-
-				url_reload_check();
-
 			});
 
 			$scope.indeedStringBuild["q"] = "programming";
+			currentId = "programming";
 			url_reload_check();
 		});
 		</script>

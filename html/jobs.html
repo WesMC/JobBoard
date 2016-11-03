@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="search-jobs">
+<html lang="en" ng-app="myApp">
     <head>
         <meta http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +7,7 @@
         <title>This is a standard title</title>
         <script async src="../libs/angular-1.5.8.min.js"></script>
         <script async src="../libs/jquery-3.1.1.min.js"></script>
+        <script src="../libs/x2js-master/xml2json.js"></script>
         <script async src="../MyScript.js"></script>
         <link rel="stylesheet" href="../stylesheet.css">
 
@@ -93,39 +94,150 @@
                 </div>
             </div>
         </div>
-        <div class="container" ng-controller="display_seg">
-            <ul class="nav nav-pills nav-justified">
-                <li class={{prog_dis_class}} role="presentation">
-                    <a ng-click="displayProg()">Programming Jobs</a>
-                    <div class="bootcards-list" ng-show="progShow">
-                        ... Your bootcards List goes here ...
-                        <div class="panel panel-default">
-                            <div class="list-group">
-                                <a class="list-group-item" href="#">
-                                    <div class="row">
-                                        <div class="col-sm-7">
-                                            <i class="fa fa-3x fa-building-o pull-left"></i>
-                                            <h4 class="list-group-item-heading">Some Header</h4>
-                                            <p class="list-group-item-text">Some Item text</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class={{writ_dis_class}} role="presentation">
-                    <a ng-click="displayWrit()">Writing Jobs</a>
-                    <div ng-show="writ-show" class="col-sm-7 bootcards-cards">
-                        ... Your bootcards Cards go here ...
-                    </div>
-                </li>
-                <li class={{all_dis_class}} role="presentation">
-                    <a>All Jobs</a>
-                </li>
-            </ul>
-        </div>
+        <!-- End Top NavBar -->
 
+        <!-- Begin Tabs -->
+        <div class="container" ng-controller="myCtrl">
+			<h1>Job Listings</h1>
+			<ul class="nav nav-pills nav-justified">
+				<li class="active"><a data-toggle="tab" href="#ProgrammingJobs" ng-click="getUpdate($event)">Programming Jobs</a></li>
+				<li><a data-toggle="tab" href="#WritingJobs" ng-click="getUpdate($event)">Writing Jobs</a></li>
+				<li><a data-toggle="tab" href="#AllJobs" ng-click="getUpdate($event)">All Jobs</a></li>
+			</ul>
+        </div>
+        <!-- End Tabs -->
+
+        <!-- Begin Main Content -->
+        <div class="container">
+            <div class="tab-content" ng-controller="tabParent">
+				<div ng-controller="parseString" class="tab-pane fade in active" id="ProgrammingJobs">
+					<h3>Programming Jobs</h3>
+					<p>Here are some programming jobs</p>
+					<div class="bootcards-list">
+						<div class="list-group">
+							<div class="row">
+								<div ng-repeat="response in jsonResponse">
+									<div ng-repeat="myResults in response.results.result">
+										<div class="col-sm-6">
+										<div ng-if="$index % 2 == 0"></div>
+											<div class="panel panel-default">
+												<div class="panel-heading clearfix">
+													<h3 class="text-center">{{myResults.jobtitle}}</h3>
+												</div>
+												<div class="list-group">
+													<div class="list-group-item">
+														<p class="list-group-item-text">Company</p>
+														<h4 class="list-group-item-heading">{{myResults.company}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">Location</p>
+														<h4 class="list-group-item-heading">{{myResults.formattedLocation}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">{{myResults.snippet}}</p>
+													</div>
+												</div>
+												<div class="panel-footer">
+													<small>Posted: {{myResults.formattedRelativeTime}}</small>
+													<div class="text-right">
+														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-controller="parseString" class="tab-pane fade" id="WritingJobs">
+					<h3>Writing Jobs</h3>
+					<p>These are the writing jobs</p>
+					<div class="bootcards-list">
+						<div class="list-group">
+							<div class="row">
+								<div ng-repeat="response in jsonResponse">
+									<div ng-repeat="myResults in response.results.result">
+										<div class="col-sm-6">
+										<div ng-if="$index % 2 == 0"></div>
+											<div class="panel panel-default">
+												<div class="panel-heading clearfix">
+													<h3 class="text-center">{{myResults.jobtitle}}</h3>
+												</div>
+												<div class="list-group">
+													<div class="list-group-item">
+														<p class="list-group-item-text">Company</p>
+														<h4 class="list-group-item-heading">{{myResults.company}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">Location</p>
+														<h4 class="list-group-item-heading">{{myResults.formattedLocation}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">{{myResults.snippet}}</p>
+													</div>
+												</div>
+												<div class="panel-footer">
+													<small>Posted: {{myResults.formattedRelativeTime}}</small>
+													<div class="text-right">
+														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-controller="parseString" class="tab-pane fade" id="AllJobs">
+					<h3>All Jobs</h3>
+					<p>These are all of Indeed's Jobs</p>
+					<div class="bootcards-list">
+						<div class="list-group">
+							<div class="row">
+								<div ng-repeat="response in jsonResponse">
+									<div ng-repeat="myResults in response.results.result">
+										<div class="col-sm-6">
+										<div ng-if="$index % 2 == 0"></div>
+											<div class="panel panel-default">
+												<div class="panel-heading clearfix">
+													<h3 class="text-center">{{myResults.jobtitle}}</h3>
+												</div>
+												<div class="list-group">
+													<div class="list-group-item">
+														<p class="list-group-item-text">Company</p>
+														<h4 class="list-group-item-heading">{{myResults.company}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">Location</p>
+														<h4 class="list-group-item-heading">{{myResults.formattedLocation}}</h4>
+													</div>
+													<div class="list-group-item">
+														<p class="list-group-item-text">{{myResults.snippet}}</p>
+													</div>
+												</div>
+												<div class="panel-footer">
+													<small>Posted: {{myResults.formattedRelativeTime}}</small>
+													<div class="text-right">
+														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Begin Navbar Footer -->
         <div class="navbar navbar-default navbar-fixed-bottom">
             <div class="container">
                 <div class="btn-group">
@@ -148,6 +260,8 @@
                 </div>
             </div>
         </div>
+        <!-- End Navbar Footer -->
+
         <!-- Need to load javascript libraries -->
         <script src="../libs/bootstrap_3.3.5.min.js"></script>
         <script src="../libs/bootcards_1.1.2.min.js"></script>
@@ -173,5 +287,6 @@ disableRubberBanding : true,
 disableBreakoutSelector : 'a.no-break-out'
 });
         </script>
+        <script src="../MyScript.js"></script>
     </body>
 </html>
