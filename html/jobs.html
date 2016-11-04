@@ -9,7 +9,6 @@
         <script src="../libs/jquery-3.1.1.min.js"></script>
         <script src="../libs/x2js-master/xml2json.js"></script>
         <script src="../MyScript.js"></script>
-        <link rel="stylesheet" href="../stylesheet.css">
 
         <!-- Links to the bootstrap and the bootcards. Use only one bootcard stylesheet, based on what OS we're using -->
         <link rel="stylesheet" href="../libs/bootstrap_3.3.4.min.css">
@@ -19,6 +18,8 @@
         <!--<link rel="stylesheet" href="libs/bootcards-ios.min.css"> -->
         <link rel="stylesheet" href="../libs/bootcards-desktop.min.css">
         <!--<link rel="stylesheet" href="libs/bootcards-android.min.css">-->
+
+        <link rel="stylesheet" href="../stylesheet.css">
 
     </head>
     <body>
@@ -100,9 +101,9 @@
         <div class="container" ng-controller="myCtrl">
 			<h1>Job Listings</h1>
 			<ul class="nav nav-pills nav-justified">
-				<li class="active"><a data-toggle="tab" href="#ProgrammingJobs" ng-click="getUpdate($event)">Programming Jobs</a></li>
-				<li><a data-toggle="tab" href="#WritingJobs" ng-click="getUpdate($event)">Writing Jobs</a></li>
-				<li><a data-toggle="tab" href="#AllJobs" ng-click="getUpdate($event)">All Jobs</a></li>
+				<li class="active"><a class="tab-display" data-toggle="tab" href="#ProgrammingJobs" ng-click="getUpdate($event)">Programming Jobs</a></li>
+				<li><a class="tab-display" data-toggle="tab" href="#WritingJobs" ng-click="getUpdate($event)">Writing Jobs</a></li>
+				<li><a class="tab-display" data-toggle="tab" href="#AllJobs" ng-click="getUpdate($event)">All Jobs</a></li>
 			</ul>
         </div>
         <!-- End Tabs -->
@@ -140,7 +141,7 @@
 												<div class="panel-footer">
 													<small>Posted: {{myResults.formattedRelativeTime}}</small>
 													<div class="text-right">
-														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+														<small><a class="btn btn-default panel-button-custom"href="{{myResults.url}}">Go To Post</a></small>
 													</div>
 												</div>
 											</div>
@@ -154,7 +155,7 @@
 				<div ng-controller="parseString" class="tab-pane fade" id="WritingJobs">
 					<h3>Writing Jobs</h3>
 					<p>These are the writing jobs</p>
-					<div class="bootcards-list">
+                    <div class="bootcards-list">
 						<div class="list-group">
 							<div class="row">
 								<div ng-repeat="response in jsonResponse">
@@ -181,7 +182,7 @@
 												<div class="panel-footer">
 													<small>Posted: {{myResults.formattedRelativeTime}}</small>
 													<div class="text-right">
-														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+														<small><a class="btn btn-default panel-button-custom"href="{{myResults.url}}">Go To Post</a></small>
 													</div>
 												</div>
 											</div>
@@ -195,7 +196,7 @@
 				<div ng-controller="parseString" class="tab-pane fade" id="AllJobs">
 					<h3>All Jobs</h3>
 					<p>These are all of Indeed's Jobs</p>
-					<div class="bootcards-list">
+                    <div class="bootcards-list">
 						<div class="list-group">
 							<div class="row">
 								<div ng-repeat="response in jsonResponse">
@@ -222,7 +223,7 @@
 												<div class="panel-footer">
 													<small>Posted: {{myResults.formattedRelativeTime}}</small>
 													<div class="text-right">
-														<small><a class="btn btn-default"href="{{myResults.url}}">Go To Post</a></small>
+														<small><a class="btn btn-default panel-button-custom"href="{{myResults.url}}">Go To Post</a></small>
 													</div>
 												</div>
 											</div>

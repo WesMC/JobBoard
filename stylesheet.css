@@ -84,3 +84,53 @@
     clear: left;
   }
 }
+
+/** END OF SOURCE*/
+
+.col-sm-6{
+    height: 420px;
+}
+
+.panel-heading,
+.clearfix,
+.panel-footer,
+.navbar-fixed-bottom {
+    background-color: #BE79B2;
+}
+
+.panel-heading>h3,
+.clearfix>h3,
+.panel-footer>small,
+.bootcards-desktop-footer>p{
+    color: #fff;
+}
+
+.panel-default .panel-heading {
+    color: #333;
+    background-color: #BE79B2;
+    border-color: #ddd;
+}
+
+.panel-button-custom{
+    background-color: #F5D177;
+    border-color: transparent;
+    border-radius: 0px;
+    font-weight: bold;
+}
+
+.nav-pills>li>a {
+    background-color: #F7ECD0;
+    color: #F5D177;
+    border-radius: 0px;
+}
+
+.nav-pills>li>a:hover {
+    background-color: #F5F3ED;
+    color: #F5D177;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #F5D177;
+    border-radius: 0px;
+}
