@@ -1,19 +1,41 @@
+/**
+*	Description: Contain the main functionality of the entire project in JS code through the use of Angular JS
+*		Angular JS lets us have the ability to shift our Server Side functionality to the Front End
+*		So long as we keep the sensitive information on the server, and not here, this is perfectly acceptable
+*
+*	File: 					MyScript.js
+*	Author: 				Wesley Couturier
+*	Date (last modified): 	11-7-2016 (mm-dd-yyyy)
+*/
+
+// The ONLY globals we will have.
 var app = angular.module("myApp", []);
+// This is used to turn XML to a JSON objet for javascript usage
 var my_x2js = new X2JS();
 
+// Service contains variables and functions that multiple controllers might need access to.
+// You can only get access to service variables through the use of it's functions, a.k.a. Encapsulation.
 app.service('activeTabs', function() {
+	// IDs for the tabs that determine which tab is active, so we know where to post our tab content
 	var myIDs = {
 		"programming": angular.element(document.querySelector('#ProgrammingJobs')),
 		"writing": angular.element(document.querySelector('#WritingJobs')),
 		"all": angular.element(document.querySelector('#AllJobs'))
 	};
+
+	// Bool to double check if we're allowed to get new content
 	var reload = true;
+
+	// Set/Dictionary used to contain the current contents of each tab. Why make another query when we had
+	// it before?
 	var myJobs = {
 		"programming": "",
 		"writing": "",
 		"all": ""
 	};
+
 	return {
+		// Returns specified set/Dictionary
 		getJobBoard: function(idToGet) {
 			var temp = Object.keys(myJobs);
 			for (var i = 0; i < temp.length; i++) {
@@ -22,23 +44,29 @@ app.service('activeTabs', function() {
 				}
 			}
 		},
-		setJobBoard: function(idToChange, myXml) {
+		// Sets specified set/Dictionary in the Service
+		setJobBoard: function(idToChange, myJson) {
 			var temp = Object.keys(myJobs);
 			for (var i = 0; i < temp.length; i++) {
 				if (angular.equals(temp[i], idToChange)) {
-					myJobs[temp[i]] = myXml;
+					myJobs[temp[i]] = myJson;
 				}
 			}
 		},
+
 		getReload: function() {
 			return reload;
 		},
+
 		setReload: function(boolIn) {
 			reload = boolIn;
 		},
+
 		getIDs: function() {
 			return myIDs;
 		},
+		// If we want to know which tab we're on, we need to check which one is active. This function
+		// updates our service IDs so we know which one is active.
 		updateIDs: function() {
 			myIDs = {
 				"programming": angular.element(document.getElementById('ProgrammingJobs')),
@@ -46,37 +74,44 @@ app.service('activeTabs', function() {
 				"all": angular.element(document.getElementById('AllJobs'))
 			};
 		},
+
 		reloadContainer: function() {
 			// Need to make sure we get the right info for the right tab
 			this.updateIDs();
-			//tell parseString to remake url and Query
+			// tell parseString to remake url and Query
 			reload = true;
 			return this.getJobBoard();
 		}
 	};
 });
 
+// Parent Controller used to take broadcast event and data from one child to another
 app.controller("tabParent", function($scope, activeTabs, $sce) {
-	$scope.customHTML = $sce.trustAsHtml('<div class=bootcards-list><div class=list-group><div class=row><div ng-repeat="response in jsonResponse"><div ng-repeat="myResults in response.results.result"><div class=col-sm-6><div ng-if="$index % 2 == 0"></div><div class="panel panel-default"><div class="clearfix panel-heading"><h3 class=text-center>{{myResults.jobtitle}}</h3></div><div class=list-group><div class=list-group-item><p class=list-group-item-text>Company<h4 class=list-group-item-heading>{{myResults.company}}</h4></div><div class=list-group-item><p class=list-group-item-text>Location<h4 class=list-group-item-heading>{{myResults.formattedLocation}}</h4></div><div class=list-group-item><p class=list-group-item-text>{{myResults.snippet}}</div></div><div class=panel-footer><div class="btn-group btn-group-justified"><div class=btn-group><a class="btn btn-default"href=#><i class="fa fa-arrow-down"></i> View More Info</a></div><div class=btn-group><a class="btn btn-default"href={{myResults.url}}><i class="fa fa-envelope"></i> Go To Post</a></div></div></div></div></div></div></div></div></div></div>');
 	$scope.$on("url_reload_check_two", function(event, data) {
-		// Testing purposes, IT WORKS!!
-		//console.log("Parent $on function");
+		// This function's sole purpose is to be here, Nothing else. Don't Do anything in here.
+		// If you need additional functionaly, please write a new function in this Parent Controller.
 	});
 });
 
+// Controller used to broadcast to sibling controller to update tab content
 app.controller("myCtrl", function($scope, $http, activeTabs) {
-	//$scope.writingHtml = $sce.trustAsHtml(htmlToSend)
 	$scope.getUpdate = function($event) {
-		//console.log($event.target.hash);
-		//console.log(angular.element(document.getElementById($event.target.hash)).scope.controller;
+		// This will call the "url_reload_check_two" function in Parent to give this controller's
+		// sibling the tab we seleted.
 		$scope.$parent.$broadcast("url_reload_check_two", $event.target.hash);
 	};
 });
 
+// Controller that handles the tab content, url building and querying from Indeed's API
 app.controller("parseString", function($scope, $sce, $http, activeTabs) {
+	// NEED variable of this instance. You'll see later.
 	var vm = this;
+	// Which tab ID is Active for tab content load.
 	var currentId = "";
+	// Empty container for response returns.
 	vm.response = [];
+
+	// scope variables to building the URL
 	$scope.indeedRequestUrl = "http://api.indeed.com/ads/apisearch?";
 	$scope.indeedStringBuild = {
 		"publisher": "9810209592087925",
@@ -100,11 +135,14 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 		"userip": "1.2.3.4",
 		"useragent": "Mozilla/%2F4.0(Firefox)"
 	};
+
 	$scope.indeedUrlBuilder = function(baseUrl, GivenJson) {
 		/** This builds the api url for indeed's request
 		 *	PARAMETERS:
 		 *		baseUrl - the header url for indeed, typically is contained in $scope.indeedRequestUrl
 		 *		GivenJson - The JSON object that contains the different that are to be added to make the url
+		 * 	RETURNS:
+ 		 *		correctly built URL as a String
 		 */
 		var urlToReturn = "";
 		urlToReturn += baseUrl;
@@ -115,11 +153,18 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 		}
 		return urlToReturn;
 	};
-	$scope.URL_Handle = function(jobBoard) {
-		// console.log($scope.stringBuild send api request);
-		// $scope.requestUrl = $scope.indeedUrlBuilder($scope.indeedRequestUrl, $scope.indeedStringBuild)
+
+	$scope.URL_Handle = function() {
+		/** Function gets built URL, then uses $http to request a response. We should have the
+		*		functions built into $http for success or failure
+		*	PARAMETERS:
+		*		none
+		* 	RETURNS:
+		*		nothing
+		*/
+
 		$scope.requestUrl = $scope.indeedUrlBuilder($scope.indeedRequestUrl, $scope.indeedStringBuild);
-		console.log($scope.requestUrl);
+		// console.log($scope.requestUrl);		// *** Debug Purposes, keep here *** //
 		// For now, we must assume that we have a XML string to setup list-group stuff on the main page
 		$http.get($scope.requestUrl).then(function(data) {
 			vm.response = data.data;
@@ -128,20 +173,35 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 			activeTabs.setJobBoard(currentId, $scope.jsonResponse);
 		});
 	};
-	// Only get the URL if we need to reload the container
-	function url_reload_check(id) {
+
+	function url_reload_check() {
+		/** Determines if 1) we CAN check for a chenge of tab content, and 2)
+		*		if we should get a new URL response, or get our JobBoard if there's anything in there.
+		*	PARAMETERS:
+		*		none
+		* 	RETURNS:
+		*		nothing
+		*/
 		if (activeTabs.getReload() == true) {
 			//console.log(activeTabs);
 			if (activeTabs.getJobBoard(currentId) != "") {
 				$scope.jsonResponse = activeTabs.getJobBoard(currentId);
 				activeTabs.setReload(false);
 			} else {
-				$scope.URL_Handle(id);
+				$scope.URL_Handle();
 				activeTabs.setReload(false);
 			}
 		}
 	}
+
 	$scope.$on("url_reload_check_two", function(event, args) {
+		/** Receives Parent's broadcast, and interprets which tab content to load. as well as tells
+		*	the string build what to query (i.e. Programming, Writing, or All Jobs)
+		*	PARAMETERS:
+		*		event - Where the event broadcast call took place, this is a default
+		*		args - an array if more than one item is in here, Is nothing more than what we want to pass,
+		*				In this case, it is the id of the element of what we want to make the tab Content to
+		*/
 		var myIDs = activeTabs.getIDs();
 		var temp = Object.keys(myIDs);
 		activeTabs.setReload(true);
@@ -152,11 +212,13 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 				//console.log("I'm in if");
 				$scope.indeedStringBuild["q"] = temp[i];
 				currentId = temp[i];
-				url_reload_check(temp[i]);
+				url_reload_check();
 				//console.log($scope.indeedStringBuild);
 			}
 		}
 	});
+
+	// Some defaults to get the ball rolling.
 	$scope.indeedStringBuild["q"] = "programming";
 	currentId = "programming";
 	url_reload_check();

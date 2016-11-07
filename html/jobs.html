@@ -40,16 +40,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!--
-                <button type="button" class="btn btn-default btn-back navbar-left pull-left" onclick="history.back()">
-                    <i class="fa fa-lg fa-chevron-left"></i>
-                    <span>Back</span>
-                </button>
-                <button type="button" class="btn btn-default btn-menu pull-right" data-toggle="offcanvas">
-                    <i class="fa fa-lg fa-bars"></i>
-                    <span>Menu</span>
-                </button>
-                -->
                 <a class="navbar-brand no-break-out" title="Job Board v{{getAppVersion}}" href="../index.html">Job Board</a>
             </div>
             <div class="navbar-collapse collapse">
@@ -71,30 +61,6 @@
                     </li>
                 </ul>
             </div>
-            <!--
-                <div class="navmenu offcanvas offcanvas-left">
-                  <ul class="nav">
-                      <li class="active">
-                          <a href="jobs.html">
-                              <i class="fa fa-cubes"></i>
-                              Look Up Jobs
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <i class="fa fa-building-o"></i>
-                              Companies
-                          </a>
-                      </li>
-                      <li>
-                          <a href="settings.html">
-                              <i class="fa fa-gears"></i>
-                              My Account
-                          </a>
-                      </li>
-                  </ul>
-              </div>
-            -->
         </div>
     </div>
     <!-- End Top NavBar -->
@@ -116,6 +82,12 @@
     <!-- Begin Main Content -->
     <div class="container">
         <div class="tab-content" ng-controller="tabParent">
+            <!-- BEGIN Tab Content -->
+            <!--
+                Each of the tab's content are here, separated, but all are using the same ng-controller
+                Would love to find a way to use PJax in order to dynamically add content to page here,
+                so that way we don't repeat ouselves.
+            -->
             <div ng-controller="parseString" class="tab-pane fade in active" id="ProgrammingJobs">
                 <h3>Programming Jobs</h3>
                 <p>Here are some programming jobs</p>
@@ -239,50 +211,23 @@
                     </div>
                 </div>
             </div>
+            <!-- END Tab Content -->
+            <!-- BEGIN Page Switcher -->
+            <nav aria-label="...">
+              <ul class="pager">
+                <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+                <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+              </ul>
+            </nav>
+            <!-- END Page Switcher -->
         </div>
     </div>
     <!-- End Main Content -->
 
     <!-- Begin Navbar Footer -->
-    <!--
-<div class="navmenu offcanvas offcanvas-left">
-                  <ul class="nav">
-                      <li class="active">
-                          <a href="jobs.html">
-                              <i class="fa fa-cubes"></i>
-                              Look Up Jobs
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <i class="fa fa-building-o"></i>
-                              Companies
-                          </a>
-                      </li>
-                      <li>
-                          <a href="settings.html">
-                              <i class="fa fa-gears"></i>
-                              My Account
-                          </a>
-                      </li>
-                  </ul>
-              </div> -->
+
     <div class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
-            <!--<div class="btn-group">
-                    <a href="jobs.html" class="btn btn-default active">
-                        <i class="fa fa-2x fa-cubs"></i>
-                        Look Up Jobs
-                    </a>
-                    <a href="#" class="btn btn-default">
-                        <i class="fa fa-2x fa-building-o"></i>
-                        Companies
-                    </a>
-                    <a href="settings.html" class="btn btn-default">
-                        <i class="fa fa-2x fa-gears"></i>
-                        My Account
-                    </a>
-                </div> -->
             <div class="bootcards-desktop-footer clearfix">
                 <p class="pull-left">Text for desktop footer goes here</p>
                 <p class="pull-right">More text for desktop footer goes here</p>
@@ -294,6 +239,7 @@
     <!-- Need to load javascript libraries -->
     <script src="../libs/bootstrap_3.3.5.min.js"></script>
     <script src="../libs/bootcards_1.1.2.min.js"></script>
+
     <script>
         /*
         * Initialize Bootcards.
@@ -316,6 +262,7 @@
             disableBreakoutSelector: 'a.no-break-out'
         });
     </script>
+
     <script src="../MyScript.js"></script>
 </body>
 
