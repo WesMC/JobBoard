@@ -239,7 +239,7 @@
 			var currentId = "";
 			vm.response = [];
             $scope.indeedRequestUrl = "http://api.indeed.com/ads/apisearch?";
-            $scope.indeedStringBuild = {"publisher": "", "v": 2, "format": "xml", "callback": "",
+            $scope.indeedStringBuild = {"publisher": "{{PUBLISHER-ID}}", "v": 2, "format": "xml", "callback": "",
                                   "q": "", "l": "", "sort": "", "radius": "", "st": "", "jt": "", "start": "",
                                   "limit": 25, "fromage": "", "highlight": "", "filter": 1, "latlong": 0, "chnl": "",
                                   "co": "us", "userip": "1.2.3.4", "useragent": "Mozilla/%2F4.0(Firefox)" };

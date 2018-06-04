@@ -114,7 +114,7 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 	// scope variables to building the URL
 	$scope.indeedRequestUrl = "http://api.indeed.com/ads/apisearch?";
 	$scope.indeedStringBuild = {
-		"publisher": "[[Enter Your API ID Here]]",
+		"publisher": "{{PUBLISHER-ID}}",
 		"v": 2,
 		"format": "xml",
 		"callback": "",
@@ -196,9 +196,7 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 			xhttp.open("GET", "../libs/xml/allJobs.xml", false);
 			xhttp.send();
 		}
-		console.log("XHTTP Response Text : " + xhttp.responseText);
-		console.log("Parser Return : " + parser.parseFromString(xhttp.responseText, "application/xml"))
-		//return parser.parseFromString(xhttp.responseText, "application/xml");
+
 		return xhttp.responseText;
 	}
 
@@ -235,7 +233,12 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 				$scope.jsonResponse = activeTabs.getJobBoard(currentId);
 				activeTabs.setReload(false);
 			} else {
+				// For Web server usage
+				//$scope.URL_Handle();
+
+				// For Local Usage, pulling from the XML files
 				$scope.URL_Handle_2();
+
 				activeTabs.setReload(false);
 			}
 		}
