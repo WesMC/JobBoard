@@ -114,7 +114,7 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 	// scope variables to building the URL
 	$scope.indeedRequestUrl = "http://api.indeed.com/ads/apisearch?";
 	$scope.indeedStringBuild = {
-		"publisher": "9810209592087925",
+		"publisher": "[[Enter Your API ID Here]]",
 		"v": 2,
 		"format": "xml",
 		"callback": "",
@@ -174,6 +174,53 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 		});
 	};
 
+	function xml_handler (ID) {
+		/** Function returns xml response from resquest of local xml files located in project path
+		*	PARAMETERS:
+		*		ID - current ID that we're going to use to determine which xml file to grab
+		* 	RETURNS:
+		*		xml data from local files
+		*/
+
+		var xhttp = new XMLHttpRequest();
+		var parser = new DOMParser();
+		if (ID == "programming") {
+			xhttp.open("GET", "../libs/xml/allProgramming.xml", false);
+			xhttp.send();
+		}
+		else if (ID == "writing") {
+			xhttp.open("GET", "../libs/xml/allWriting.xml", false);
+			xhttp.send();
+		}
+		else {
+			xhttp.open("GET", "../libs/xml/allJobs.xml", false);
+			xhttp.send();
+		}
+		console.log("XHTTP Response Text : " + xhttp.responseText);
+		console.log("Parser Return : " + parser.parseFromString(xhttp.responseText, "application/xml"))
+		//return parser.parseFromString(xhttp.responseText, "application/xml");
+		return xhttp.responseText;
+	}
+
+	$scope.URL_Handle_2 = function () {
+		/** Function returns back a pre-determined reponse from Indeed.com's API using the proper format
+		* 		of an API call. Uses the files /libs/xml/
+		*	PARAMETERS:
+		*		none
+		* 	RETURNS:
+		*		nothing
+		*/
+		
+		if (currentId == "programming")
+			$scope.jsonResponse = my_x2js.xml_str2json(xml_handler(currentId));
+		else if (currentId == "writing")
+			$scope.jsonResponse = my_x2js.xml_str2json(xml_handler(currentId));
+		else if (currentId == "all")
+			$scope.jsonResponse = my_x2js.xml_str2json(xml_handler(currentId));
+
+		activeTabs.setJobBoard(currentId, $scope.jsonResponse);
+	}
+
 	function url_reload_check() {
 		/** Determines if 1) we CAN check for a chenge of tab content, and 2)
 		*		if we should get a new URL response, or get our JobBoard if there's anything in there.
@@ -188,7 +235,7 @@ app.controller("parseString", function($scope, $sce, $http, activeTabs) {
 				$scope.jsonResponse = activeTabs.getJobBoard(currentId);
 				activeTabs.setReload(false);
 			} else {
-				$scope.URL_Handle();
+				$scope.URL_Handle_2();
 				activeTabs.setReload(false);
 			}
 		}
