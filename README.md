@@ -4,7 +4,6 @@ This project was created as a technical challenge to obtain my first internship 
 
 ## Table of Contents
 - [Setup](#setup)
-  - [blablabla](#make-a-repo-for-verion-control)
 - [Navigation](#navigation)
 
 ## Setup
